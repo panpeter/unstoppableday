@@ -513,3 +513,8 @@ pre code {
   margin: 0;
   padding: 0;
 }
+
+/* Custom styles */
+body header {
+    padding-top: 1rem;
+}
