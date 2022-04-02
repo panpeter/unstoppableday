@@ -8,11 +8,11 @@
 
   /* Default (light) theme */
   --bg: #fff;
-  --accent-bg: #f5f7ff;
+  --accent-bg: #ffebee;
   --text: #212121;
   --text-light: #585858;
   --border: #d8dae1;
-  --accent: #0d47a1;
+  --accent: #e53935;
   --code: #d81b60;
   --preformatted: #444;
   --marked: #ffdd33;
@@ -27,7 +27,7 @@
     --text: #dcdcdc;
     --text-light: #ababab;
     --border: #666;
-    --accent: #ffb300;
+    --accent: #ff8a80;
     --code: #f06292;
     --preformatted: #ccc;
     --disabled: #111;
