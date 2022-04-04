@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Unstoppable Day</title>
+    <meta name="description"
+          content="Decentralized, community-owned calendar stored on the blockchain. Curated NFT drops, ICOs, and other crypto-related events.">
+    <meta name="keywords" content="crypto calendar, ntf calendar, ico calendar, nft drops, ico, airdrop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Piotr Wilczek">
+    <link rel="stylesheet" href="/css/simple.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <script defer data-domain="unstoppableday.io" src="https://plausible.io/js/plausible.js"></script>
+
+    <style>
+        main {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 0px;
+        }
+        svg {
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            margin: 2rem 0px;
+        }
+        button {
+            padding: 1.1rem 1.3rem;
+            min-width: 180px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Unstoppable Day</h1>
+    <p>Decentralized calendar stored on the blockchain.</p>
+</header>
+
+<main>
+    <h2>Day</h2>
+    <div>
+        <svg width="320" height="320">
+            <rect width="320" height="320" fill="#ffffff"/>
+            <text
+                    id="date"
+                    x="50%"
+                    y="50%"
+                    dominant-baseline="middle"
+                    font-size="48"
+                    font-family="monospace"
+                    text-anchor="middle"
+            ></text>
+        </svg>
+    </div>
+    <div>
+        <button onclick="alert('Coming soon...');">Mint</button>
+    </div>
+</main>
+
+<footer>
+    <p>
+        <a href="https://unstoppableday.io">unstoppableday.io</a>
+        is created by
+        <a href="https://piotrwilczek.com">Piotr Wilczek</a>
+        and the code is publicly accessible on
+        <a href="https://github.com/panpeter/unstoppableday">GitHub</a>.
+    </p>
+</footer>
+
+<script>
+    function updateSvg() {
+        const path = window.location.path.substring(1)
+        const millis = Date.parse(path)
+        if (!millis) {
+            window.location.href = "/404.html"
+            return
+        }
+
+        const date = new Date(millis)
+        const dateString = date.toISOString().split('T')[0]
+        const svgText = document.getElementById("date")
+        svgText.textContent = dateString
+    }
+
+    updateSvg()
+</script>
+
+</body>
+</html>
