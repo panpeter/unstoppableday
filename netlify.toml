@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/:date"
+  to = "/day.html"
+  status = 200
