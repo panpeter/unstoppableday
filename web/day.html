@@ -75,7 +75,7 @@
 
 <script>
     function updateSvg() {
-        const path = window.location.path.substring(1)
+        const path = window.location.pathname.substring(1)
         const millis = Date.parse(path)
         if (!millis) {
             window.location.href = "/404.html"
