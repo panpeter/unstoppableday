@@ -1,0 +1,19 @@
+{
+  "name": "Unstoppable Day",
+  "version": "1.0.0",
+  "description": "Unstoppable Day contracts",
+  "author": "Piotr Wilczek",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "chai": "^4.3.6",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.6.2",
+    "hardhat": "^2.9.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "dotenv": "^16.0.0"
+  }
+}
