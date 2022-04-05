@@ -46,7 +46,7 @@
     <h2>Day</h2>
     <div>
         <svg width="320" height="320">
-            <rect width="320" height="320" fill="#ffffff"/>
+            <rect width="320" height="320" fill="#000"/>
             <text
                     id="date"
                     x="50%"
@@ -55,6 +55,7 @@
                     font-size="48"
                     font-family="monospace"
                     text-anchor="middle"
+                    fill="#fff"
             ></text>
         </svg>
     </div>
@@ -84,8 +85,10 @@
 
         const date = new Date(millis)
         const dateString = date.toISOString().split('T')[0]
+        const svgTextSize = 48 * 10 / dateString.length;
         const svgText = document.getElementById("date")
         svgText.textContent = dateString
+        svgText.setAttribute("font-size", svgTextSize)
     }
 
     updateSvg()
