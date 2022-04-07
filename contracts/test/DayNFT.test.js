@@ -42,14 +42,14 @@ describe("DayNFT contract", function () {
         let dayJsonString = Buffer.from(dayUri.substring(29), "base64").toString()
         let dayJson = JSON.parse(dayJsonString)
         
-        expect(dayJson.name).to.equal("Date 2022-02-02")
-        expect(dayJson.description).to.equal("Date 2022-02-02")
+        expect(dayJson.name).to.equal("Day 2022-02-02")
+        expect(dayJson.description).to.equal("Day 2022-02-02")
 
         let imageUri = dayJson.image
         // 26 = length of "data:image/svg+xml;base64,"
         let imageString = Buffer.from(imageUri.substring(26), "base64").toString()
         
-        expect(imageString).to.contain("font-size='48'")
+        expect(imageString).to.contain('font-size="48"')
         expect(imageString).to.contain(">2022-02-02<")
     })
 
@@ -62,14 +62,14 @@ describe("DayNFT contract", function () {
         let dayJsonString = Buffer.from(dayUri.substring(29), "base64").toString()
         let dayJson = JSON.parse(dayJsonString)
         
-        expect(dayJson.name).to.equal("Date 1-01-01")
-        expect(dayJson.description).to.equal("Date 1-01-01")
+        expect(dayJson.name).to.equal("Day 1-01-01")
+        expect(dayJson.description).to.equal("Day 1-01-01")
 
         let imageUri = dayJson.image
         // 26 = length of "data:image/svg+xml;base64,"
         let imageString = Buffer.from(imageUri.substring(26), "base64").toString()
         
-        expect(imageString).to.contain("font-size='68'")
+        expect(imageString).to.contain('font-size="68"')
         expect(imageString).to.contain(">1-01-01<")
     })
 
@@ -82,14 +82,14 @@ describe("DayNFT contract", function () {
         let dayJsonString = Buffer.from(dayUri.substring(29), "base64").toString()
         let dayJson = JSON.parse(dayJsonString)
         
-        expect(dayJson.name).to.equal("Date 2000002-02-02")
-        expect(dayJson.description).to.equal("Date 2000002-02-02")
+        expect(dayJson.name).to.equal("Day 2000002-02-02")
+        expect(dayJson.description).to.equal("Day 2000002-02-02")
 
         let imageUri = dayJson.image
         // 26 = length of "data:image/svg+xml;base64,"
         let imageString = Buffer.from(imageUri.substring(26), "base64").toString()
         
-        expect(imageString).to.contain("font-size='36'")
+        expect(imageString).to.contain('font-size="36"')
         expect(imageString).to.contain(">2000002-02-02<")
     })
 })

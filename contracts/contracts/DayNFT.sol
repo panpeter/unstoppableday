@@ -13,13 +13,13 @@ contract DayNFT is ERC721Enumerable, Ownable {
     bool public isMintActive = false;
     mapping(address => uint256) private _mintsCount;
 
-    constructor() ERC721("DayNFT", "DAY") {}
+    constructor() ERC721("Unstoppable Day NFT", "DAY") {}
 
     function setMintActive(bool active) external onlyOwner {
         isMintActive = active;
     }
 
-    function mint(uint256 date) public {
+    function mint(uint256 date) external {
         require(isMintActive, "Mint is not active");
         require(date >= MIN_DATE, "Date must be at least 10101 (0001-01-01)");
         require(
@@ -29,6 +29,12 @@ contract DayNFT is ERC721Enumerable, Ownable {
         
         _mintsCount[_msgSender()] = _mintsCount[_msgSender()] + 1;
         _safeMint(_msgSender(), date);
+    }
+
+    function mintGift(address receiver, uint256 date) external onlyOwner {
+        require(date >= MIN_DATE, "Date must be at least 10101 (0001-01-01)");
+
+        _safeMint(receiver, date);
     }
 
     function tokenURI(uint256 tokenId)
@@ -43,9 +49,9 @@ contract DayNFT is ERC721Enumerable, Ownable {
             bytes(
                 string(
                     abi.encodePacked(
-                        '{"name": "Date ',
+                        '{"name": "Day ',
                         dateString,
-                        '", "description": "Date ',
+                        '", "description": "Day ',
                         dateString,
                         '", "image": "data:image/svg+xml;base64,',
                         Base64.encode(bytes(svgData)),
@@ -63,14 +69,14 @@ contract DayNFT is ERC721Enumerable, Ownable {
         return
             string(
                 abi.encodePacked(
-                    "<svg width='320' height='320'>",
-                    "<rect width='320' height='320' fill='#000'/>",
-                    "<text x='50%' y='50%' dominant-baseline='middle' font-size='",
+                    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 350">',
+                    '<rect width="100%" height="100%" fill="#000"/>',
+                    '<text x="50%" y="50%" dominant-baseline="middle" font-size="',
                     toString(fontSize),
-                    "' font-family='monospace' text-anchor='middle' fill='#fff'>",
+                    '" font-family="monospace" text-anchor="middle" fill="#fff">',
                     date,
-                    "</text>",
-                    "</svg>"
+                    '</text>',
+                    '</svg>'
                 )
             );
     }
