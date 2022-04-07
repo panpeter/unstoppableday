@@ -77,15 +77,35 @@
 </footer>
 
 <script>
+    function parseDate(dateString) {
+        // Expected format is YYYY-MM-DD
+        const dateParts = dateString.split("-")
+        const year = parseInt(dateParts[0])
+        const month = parseInt(dateParts[1])
+        const day = parseInt(dateParts[2])
+        if (!day || !month || !year) {
+            return null
+        }
+
+        const date = new Date()
+        date.setFullYear(year)
+        date.setMonth(month - 1)
+        date.setDate(day)
+
+        return date
+    }
+
     function updateSvg() {
-        const path = window.location.pathname.substring(1)
-        const millis = Date.parse(path)
-        if (!millis) {
+        // Expected format is YYYY-MM-DD
+        let date = parseDate(window.location.pathname.substring(1))
+        if (!date) {
+            date = parseDate(window.location.hash.substring(1))
+        }
+        if (!date) {
             window.location.href = "/404.html"
             return
         }
 
-        const date = new Date(millis)
         const dateString = date.toISOString().split('T')[0]
         const svgTextSize = 48 * 10 / dateString.length;
         const svgText = document.getElementById("date")
