@@ -25,6 +25,7 @@ module.exports = {
     networks: {
         hardhat: { },
         polygon_mumbai: {
+            chainId: 80001,
             url: POLYGON_MUMBAI_API_URL,
             accounts: [`0x${POLYGON_MUMBAI_PRIVATE_KEY}`]
          },
