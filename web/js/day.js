@@ -36,6 +36,7 @@ const feedbackDismissLink = document.getElementById("feedback_dismiss_link")
 const dateSvgText = document.getElementById("date_svg_text")
 const connectLink = document.getElementById("connect_link")
 const mintLink = document.getElementById("mint_link")
+const priceText = document.getElementById("price_text")
 const mintingText = document.getElementById("minting_text")
 const mintedLink = document.getElementById("minted_link")
 const assetLink = document.getElementById("asset_link")
@@ -144,7 +145,9 @@ const updateMintLink = function (state) {
         !state.hasOwner
     ) {
         removeHide(mintLink)
+        removeHide(priceText)
     } else {
+        hide(priceText)
         hide(mintLink)
     }
 }
@@ -280,10 +283,12 @@ const connectWallet = async function () {
 
 const mint = async function () {
     let userAddress = window.ethereum.selectedAddress
+    let value = web3.utils.toHex(web3.utils.toWei('7', 'ether'))
 
     const transactionParameters = {
         to: contractAddress,
         from: userAddress,
+        value: value,
         data: window.contract.methods.mint(state.tokenId).encodeABI()
     }
 
@@ -356,6 +361,7 @@ const setup = async function () {
     hide(loadingText)
     hide(connectLink)
     hide(mintLink)
+    hide(priceText)
     hide(mintingText)
     hide(mintedLink)
     hide(feedbackContainer)

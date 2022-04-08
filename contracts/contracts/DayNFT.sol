@@ -7,11 +7,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Base64.sol";
 
 contract DayNFT is ERC721Enumerable, Ownable {
-    uint256 public constant MAX_MINTS_PER_ADDRESS = 3;
+    uint256 public constant DAY_PRICE = 7 ether;
     uint256 internal constant MIN_DATE = 10101; // 0001-01-01
-    
+
     bool public isMintActive = false;
-    mapping(address => uint256) private _mintsCount;
 
     constructor() ERC721("Unstoppable Day NFT", "DAY") {}
 
@@ -19,15 +18,11 @@ contract DayNFT is ERC721Enumerable, Ownable {
         isMintActive = active;
     }
 
-    function mint(uint256 date) external {
+    function mint(uint256 date) external payable {
         require(isMintActive, "Mint is not active");
         require(date >= MIN_DATE, "Date must be at least 10101 (0001-01-01)");
-        require(
-            _mintsCount[_msgSender()] < MAX_MINTS_PER_ADDRESS,
-            "One address can mint max 3 days"
-        );
-        
-        _mintsCount[_msgSender()] = _mintsCount[_msgSender()] + 1;
+        require(msg.value >= DAY_PRICE, "Not enough MATIC sent");
+
         _safeMint(_msgSender(), date);
     }
 
@@ -62,6 +57,10 @@ contract DayNFT is ERC721Enumerable, Ownable {
         );
 
         return string(abi.encodePacked("data:application/json;base64,", json));
+    }
+
+    function withdraw() external onlyOwner {
+        payable(_msgSender()).transfer(address(this).balance);
     }
 
     function getSvg(string memory date) internal pure returns (string memory) {
@@ -115,7 +114,7 @@ contract DayNFT is ERC721Enumerable, Ownable {
         while (date != 0) {
             chars -= 1;
             if (chars == totalChars - 3 || chars == totalChars - 6) {
-                buffer[chars] = '-';    
+                buffer[chars] = '-';
             } else {
                 buffer[chars] = bytes1(uint8(48 + uint256(date % 10)));
                 date /= 10;
