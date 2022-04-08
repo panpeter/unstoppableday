@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Unstoppable Day</title>
     <meta name="description"
-          content="Decentralized, community-owned calendar stored on the blockchain. Curated NFT drops, ICOs, and other crypto-related events.">
+        content="Decentralized, community-owned calendar stored on the blockchain. Curated NFT drops, ICOs, and other crypto-related events.">
     <meta name="keywords" content="crypto calendar, ntf calendar, ico calendar, nft drops, ico, airdrop">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Piotr Wilczek">
@@ -18,9 +18,11 @@
         main {
             text-align: center;
         }
+
         h2 {
             margin-bottom: 0px;
         }
+
         svg {
             border-radius: 5px;
             border: 1px solid var(--border);
@@ -28,93 +30,85 @@
             max-width: 350px;
             max-height: 350px;
         }
+
         button {
             padding: 1.1rem 1.3rem;
             min-width: 180px;
             font-size: 1.2rem;
             text-transform: uppercase;
         }
+
+        .feedback {
+            margin-bottom: 3rem;
+        }
+
+        .loading {
+            text-align: center;
+        }
+
+        .missing_metamask_error {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Unstoppable Day</h1>
-    <p>Decentralized calendar stored on the blockchain.</p>
-</header>
+    <header>
+        <h1>Unstoppable Day</h1>
+        <p>Decentralized calendar stored on the blockchain.</p>
+    </header>
 
-<main>
-    <h2>Day</h2>
-    <div>
-        <svg viewBox="0 0 350 350">
-            <rect width="100%" height="100%" fill="#000"/>
-            <text
-                    id="date"
-                    x="50%"
-                    y="50%"
-                    dominant-baseline="middle"
-                    font-size="48"
-                    font-family="monospace"
-                    text-anchor="middle"
-                    fill="#fff"
-            ></text>
-        </svg>
-    </div>
-    <div>
-        <button onclick="alert('Coming soon...');">Mint</button>
-    </div>
-</main>
+    <main id="main" style="display: none;">
+        <h2>Day</h2>
+        <div>
+            <svg viewBox="0 0 350 350">
+                <rect width="100%" height="100%" fill="#000" />
+                <text id="date_svg_text" x="50%" y="50%" dominant-baseline="middle" font-size="48"
+                    font-family="monospace" text-anchor="middle" fill="#fff"></text>
+            </svg>
+        </div>
+        <div>
+            <p class="missing_metamask_error" id="missing_metamask_error">
+                To mint you need to install <a href="https://metamask.io/">MataMask</a> extension.
+            </p>
+            <div class="feedback" id="feedback_container">
+                <code id="feedback"></code><br /><a href="" id="feedback_dismiss_link">Dismiss</a>
+            </div>
+            <div id="timer_container">
+                <p class="minting_info">
+                    Minting starts May 1
+                    <span style="white-space: nowrap;">at 08:00 AM UTC</span>
+                </p>
+                <div class="countdown">
+                    <div class="unit"><span class="number" id="days_text">00</span><br />Days</div>
+                    <div class="unit"><span class="number" id="hours_text">00</span><br />Hours</div>
+                    <div class="unit"><span class="number" id="minutes_text">00</span><br />Minutes</div>
+                    <div class="unit"><span class="number" id="seconds_text">00</span><br />Seconds</div>
+                </div>
+            </div>
+            <p class="loading" id="loading_text">Checking day status...</p>
+            <a id="connect_link"><button id="connect_button">CONNECT</button></a>
+            <a id="mint_link"><button id="mint_button">MINT</button></a>
+            <p id="minting_text">Minting...</p>
+            <a id="minted_link" href="">Minted 🎉</a>
+            <a id="asset_link" href="">show asset</a>
+        </div>
+    </main>
 
-<footer>
-    <p>
-        <a href="https://unstoppableday.io">unstoppableday.io</a>
-        is created by
-        <a href="https://piotrwilczek.com">Piotr Wilczek</a>
-        and the code is publicly accessible on
-        <a href="https://github.com/panpeter/unstoppableday">GitHub</a>.
-    </p>
-</footer>
+    <footer>
+        <p>
+            <a href="https://unstoppableday.io">unstoppableday.io</a>
+            is created by
+            <a href="https://piotrwilczek.com">Piotr Wilczek</a>
+            and the code is publicly accessible on
+            <a href="https://github.com/panpeter/unstoppableday">GitHub</a>.
+        </p>
+    </footer>
 
-<script>
-    function parseDate(dateString) {
-        // Expected format is YYYY-MM-DD
-        const dateParts = dateString.split("-")
-        const year = parseInt(dateParts[0])
-        const month = parseInt(dateParts[1])
-        const day = parseInt(dateParts[2])
-        if (!day || !month || !year) {
-            return null
-        }
-
-        const date = new Date()
-        date.setFullYear(year)
-        date.setMonth(month - 1)
-        date.setDate(day)
-
-        return date
-    }
-
-    function updateSvg() {
-        // Expected format is YYYY-MM-DD
-        let date = parseDate(window.location.pathname.substring(1))
-        if (!date) {
-            date = parseDate(window.location.hash.substring(1))
-        }
-        if (!date) {
-            window.location.href = "/404.html"
-            return
-        }
-
-        const dateString = date.toISOString().split('T')[0]
-        const svgTextSize = 48 * 10 / dateString.length;
-        const svgText = document.getElementById("date")
-        svgText.textContent = dateString
-        svgText.setAttribute("font-size", svgTextSize)
-    }
-
-    updateSvg()
-</script>
+    <script src="js/alchemyWeb3.min.js"></script>
+    <script src="js/day.js"></script>
 
 </body>
+
 </html>

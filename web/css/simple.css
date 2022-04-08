@@ -515,6 +515,23 @@ pre code {
 }
 
 /* Custom styles */
+
 body header {
     padding-top: 1rem;
 }
+
+.countdown {
+    display: flex;
+    flex-wrap: wrap;
+    text-transform: uppercase;
+    justify-content: space-around;
+    margin-top: 3rem;
+}
+
+.countdown>* {
+    flex: 0 0 25%;
+}
+
+.countdown .number {
+    font-size: 1.2em;
+}    
