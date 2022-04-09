@@ -562,3 +562,9 @@ nav a.current {
 .phase_image img {
   width: 50%;
 }
+
+@media only screen and (max-width: 480px) {
+    .phase_image img {
+        width: 100%;
+    }
+}
