@@ -23,11 +23,12 @@ const contractABI = [{ inputs: [], stateMutability: "nonpayable", type: "constru
 const contractAddress = "0x741dfb71e20b9d266d54fed8e7af915b3cd50c70"
 const web3 = AlchemyWeb3.createAlchemyWeb3("wss://polygon-mumbai.g.alchemy.com/v2/MA73MnRjzd3xgxZ7uPzMvNEOFrFYehEy")
 const scannerLinkPrefix = "https://polygonscan.com/"
-const mintingStartsAt = new Date("04/01/2022 08:00 AM UTC")
+const mintingStartsAt = new Date("05/01/2022 08:00 AM UTC")
 
 // ========== HTML ELEMENTS ==========
 
 const mainView = document.getElementById("main")
+const dayText = document.getElementById("day_text")
 const loadingText = document.getElementById("loading_text")
 const missingMetamaskError = document.getElementById("missing_metamask_error")
 const feedbackContainer = document.getElementById("feedback_container")
@@ -79,6 +80,7 @@ const updateUiNow = function (state) {
 
     updateMissingMetaMaskError(state)
 
+    updateDayText(state)
     updateLoadingText(state)
     updateFeedbackView(state)
     updateDateSvgText(state)
@@ -90,6 +92,10 @@ const updateUiNow = function (state) {
     updateTimer(state)
 }
 
+const updateDayText = function(state) {
+    dayText.innerText = state.date.toISOString().split('T')[0]
+}
+
 const updateMissingMetaMaskError = function (state) {
     if (!state.metamaskPresent) {
         removeHide(missingMetamaskError)
@@ -99,7 +105,7 @@ const updateMissingMetaMaskError = function (state) {
 }
 
 const updateLoadingText = function (state) {
-    if (state.loadingAssetStatus) {
+    if (state.loadingAssetStatus && state.canMint) {
         removeHide(loadingText)
     } else {
         hide(loadingText)
@@ -171,7 +177,7 @@ const updateMintedLink = function (state) {
 }
 
 const updateAssetLink = function (state) {
-    if (state.assetLink) {
+    if (state.assetLink && state.canMint) {
         removeHide(assetLink)
         assetLink.setAttribute("href", scannerLinkPrefix + "address/" + contractAddress)
     } else {
