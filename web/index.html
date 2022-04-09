@@ -13,6 +13,21 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <script defer data-domain="unstoppableday.io" src="https://plausible.io/js/plausible.js"></script>
+    <style>
+        form {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        input {
+            width: 40%;
+            vertical-align: bottom;
+        }
+        @media only screen and (max-width: 480px) {
+            input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -46,6 +61,36 @@
         <a href="https://github.com/panpeter/unstoppableday">GitHub</a> and you can follow the development at
         <a href="https://twitter.com/piotrekwilczek">@piotrekwilczek</a>.
     </p>
+    <form>
+        <p><strong>What's your day?</strong></p>
+        <p>
+            <input type="date" name="date" id="date_input">
+            <button id="show_date_button" onclick="return false;">Show</button>
+            <script>
+                let showDateButton = document.getElementById("show_date_button")
+                showDateButton.onclick = function() {
+                    let dateInput = document.getElementById("date_input")
+                    let date = dateInput.value
+                    if (date) {
+                        window.location = "/" + date
+                    }
+                    return false;
+            }
+            </script>
+        </p>
+        <p>
+            <a id="show_lucky_date_link" href="/">or show my lucky day</a>
+            <script>
+                function randomDate(start, end) {
+                    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+                }
+                let showLuckyDateButton = document.getElementById("show_lucky_date_link")
+                let date = randomDate(new Date(), new Date(2030, 0, 1));
+                let dateString = date.toISOString().split('T')[0]
+                showLuckyDateButton.setAttribute("href", "/" + dateString)
+            </script>
+        </p>
+    </form>
 </main>
 
 <footer>
