@@ -13,23 +13,22 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <script defer data-domain="unstoppableday.io" src="https://plausible.io/js/plausible.js"></script>
-    <style>
-        .phase_image {
-            text-align: center;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .phase_image img {
-            width: 50%;
-        }
-
-    </style>
 </head>
 
 <body>
 
 <header>
+    <nav>
+        <a href="/" class="current">Home</a>
+        <a href="/roadmap">Roadmap</a>
+        <a href="https://twitter.com/piotrekwilczek">News</a>
+        <a href="https://github.com/panpeter/unstoppableday">
+            <svg class="icon" viewBox="0 0 32 32">
+                <path d="M16 0.395c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path>
+            </svg>
+            Github</a>
+
+    </nav>
     <h1>Unstoppable Day</h1>
     <p>Decentralized calendar stored on the blockchain.</p>
 </header>
@@ -46,89 +45,6 @@
         The project is being built in public. Source code is accessible freely on
         <a href="https://github.com/panpeter/unstoppableday">GitHub</a> and you can follow the development at
         <a href="https://twitter.com/piotrekwilczek">@piotrekwilczek</a>.
-    </p>
-
-    <h2>Roadmap</h2>
-    <p>
-        Below is a loose roadmap. It will be updated depending on the feedback but at the moment there is a plan for the
-        next 3 phases.
-    </p>
-
-    <h3>Phase 1 (current)</h3>
-    <p>
-        The goal of phase 1 is to launch day NFTs.
-    </p>
-    <div class="phase_image">
-        <img src="img/phase1.svg"/>
-    </div>
-    <p>
-        Each day will be represented by an ERC-721 token. The day owner will have certain responsibility - to promote
-        the day across their network. As a reward, they will keep receiving <code>UDAY</code> coins accordingly to the
-        community engagement.
-    </p>
-    <p>
-        Naturally, upcoming days will be more popular so they will have a higher value. But famous past days (and also
-        future ones) may be very valuable too.
-    </p>
-    <p>
-        <b>The minting fee will be only $10</b>.
-        Ideally, it should be free but we need a relatively small amount to prevent abuse and promote fair
-        distribution.
-    </p>
-
-    <h3>Phase 2</h3>
-    <p>
-        Phase 2 goal is to launch events and <code>UDAY</code> coin.
-    </p>
-    <div class="phase_image">
-        <img src="img/phase2.svg"/>
-    </div>
-    <p>
-        An event will also be an NFT and everyone can create one for free. Every event will be associated with a single
-        day and others can "like" or upvote events. Authors of the most popular events will be rewarded with
-        <code>UDAY</code> coin.
-    </p>
-    <p>
-        There will be also a few spots on the day page for "promoted" events. The event promoter will have to acquire
-        and spend <code>UDAY</code> coins which will then get <b>burned</b>. Events burning the most <code>UDAYs</code>
-        will
-        win the place in promo spots in an auction-like manner.
-    </p>
-    <p>
-        This will create a demand for <code>UDAY</code> and its price will be naturally settled by the market. Active
-        users will be able to sell rewarded <code>UDAYs</code> and promoters will be able to use them to promote their
-        events and support <a href="https://unstoppableday.io">unstoppableday.io</a> community.
-    </p>
-
-    <h3>Phase 3</h3>
-    <p>
-        Phase 3 goal is to launch threads and comments.
-    </p>
-    <div class="phase_image">
-        <img src="img/phase3.svg"/>
-    </div>
-    <p>
-        When completed, everyone will be able to comment and start new threads. Similarly, as with events, the most
-        interesting content will be rewarded with <code>UDAY</code> coins by the community using the voting system.
-    </p>
-    <p>
-        This will significantly increase the engagement of the <a href="https://unstoppableday.io">unstoppableday.io</a>
-        community and trigger a conversion from a calendar to a fully-fledged social platform.
-    </p>
-
-    <h3>Future</h3>
-    <p>
-        After Phase 3 <a href="https://unstoppableday.io">unstoppableday.io</a> platform should host a thriving crypto
-        community. It will be a daily go-to place for everyone to check what's new in crypto and discuss the latest
-        events.
-    </p>
-    <div class="phase_image">
-        <img src="img/future.svg"/>
-    </div>
-    <p>
-        But in the future, <a href="https://unstoppableday.io">unstoppableday.io</a> will grow and spread into other
-        topics. After seeing the power of this decentralized platform, new communities will naturally form around
-        other interests. It's also very likely that there will be a DAO dedicated to growing and managing the platform.
     </p>
 </main>
 

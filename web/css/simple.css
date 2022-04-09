@@ -265,7 +265,7 @@ nav a:last-child {
   nav a {
     border: none;
     padding: 0;
-    color: var(--accent);
+    /* color: var(--accent); */
     text-decoration: underline;
     line-height: 1;
   }
@@ -535,3 +535,30 @@ body header {
 .countdown .number {
     font-size: 1.2em;
 }    
+
+nav a.current {
+  color: var(--accent) !important;
+  border-color: var(--accent);
+}
+
+.icon {
+  vertical-align: sub;
+  padding-right: .25rem;
+  display: inline-block;
+  width: 1em;
+  height: 1.3em;
+  margin-right: 0.2rem;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.phase_image {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.phase_image img {
+  width: 50%;
+}
