@@ -27,7 +27,7 @@ const mintingStartsAt = new Date("05/01/2022 08:00 AM UTC")
 
 // ========== HTML ELEMENTS ==========
 
-const mainView = document.getElementById("main")
+const controlPanel = document.getElementById("control_panel")
 const dayText = document.getElementById("day_text")
 const loadingText = document.getElementById("loading_text")
 const missingMetamaskError = document.getElementById("missing_metamask_error")
@@ -50,11 +50,11 @@ const secondsText = document.getElementById("seconds_text")
 // ========== STATE AND RELATED FUNCTIONS ==========
 
 let state = {
-    date: null,
+    controlPanelVisible: false,
+    date: null, // Date object
     tokenId: null,
     metamaskPresent: false,
-    connected: false,
-    walletAddress: null,
+    metamaskConnected: false,
     mintingStartsIn: null,
     loadingAssetStatus: false,
     feedback: null,
@@ -64,7 +64,7 @@ let state = {
     minting: false,
     minted: false,
     transferTxHash: null,
-    timer: null,
+    timer: null
 }
 
 // ========== UPDATE UI FUNCTIONS ==========
@@ -76,14 +76,13 @@ const updateUI = function (state) {
 const debouncedUpdateUI = debounce(this, state => updateUiNow(state), 100)
 
 const updateUiNow = function (state) {
-    mainView.style.display = ""
+    updateControlPanel(state)
+    updateDayText(state)
+    updateDateSvgText(state)
 
     updateMissingMetaMaskError(state)
-
-    updateDayText(state)
     updateLoadingText(state)
     updateFeedbackView(state)
-    updateDateSvgText(state)
     updateConnectLink(state)
     updateMintLink(state)
     updateMintingText(state)
@@ -92,12 +91,29 @@ const updateUiNow = function (state) {
     updateTimer(state)
 }
 
-const updateDayText = function(state) {
+const updateControlPanel = function (state) {
+    if (state.controlPanelVisible) {
+        removeHide(controlPanel)
+        // Also remove initial display:none style.
+        controlPanel.style.display = ""
+    } else {
+        hide(controlPanel)
+    }
+}
+
+const updateDayText = function (state) {
     dayText.innerText = state.date.toISOString().split('T')[0]
 }
 
+const updateDateSvgText = function (state) {
+    const dateString = state.date.toISOString().split('T')[0]
+    const svgTextSize = 48 * 10 / dateString.length;
+    dateSvgText.textContent = dateString
+    dateSvgText.setAttribute("font-size", svgTextSize)
+}
+
 const updateMissingMetaMaskError = function (state) {
-    if (!state.metamaskPresent) {
+    if (!state.metamaskPresent && state.mintActive) {
         removeHide(missingMetamaskError)
     } else {
         hide(missingMetamaskError)
@@ -105,7 +121,7 @@ const updateMissingMetaMaskError = function (state) {
 }
 
 const updateLoadingText = function (state) {
-    if (state.loadingAssetStatus && state.canMint) {
+    if (state.loadingAssetStatus && state.mintActive) {
         removeHide(loadingText)
     } else {
         hide(loadingText)
@@ -123,19 +139,8 @@ const updateFeedbackView = function (state) {
     feedbackText.innerText = state.feedback
 }
 
-const updateDateSvgText = function (state) {
-    if (state.date == null) {
-        return
-    }
-
-    const dateString = state.date.toISOString().split('T')[0]
-    const svgTextSize = 48 * 10 / dateString.length;
-    dateSvgText.textContent = dateString
-    dateSvgText.setAttribute("font-size", svgTextSize)
-}
-
 const updateConnectLink = function (state) {
-    if (!state.connected && state.mintActive) {
+    if (!state.metamaskConnected && state.metamaskPresent && state.mintActive) {
         removeHide(connectLink)
     } else {
         hide(connectLink)
@@ -147,8 +152,8 @@ const updateMintLink = function (state) {
         !state.loadingAssetStatus &&
         !state.minting &&
         !state.minted &&
-        state.mintActive &&
-        !state.hasOwner
+        !state.hasOwner &&
+        state.mintActive
     ) {
         removeHide(mintLink)
         removeHide(priceText)
@@ -177,7 +182,7 @@ const updateMintedLink = function (state) {
 }
 
 const updateAssetLink = function (state) {
-    if (state.assetLink && state.canMint) {
+    if (state.assetLink && state.mintActive) {
         removeHide(assetLink)
         assetLink.setAttribute("href", scannerLinkPrefix + "address/" + contractAddress)
     } else {
@@ -208,23 +213,20 @@ const updateTimer = function (state) {
 
 // ========== WEB3 EVENTS ==========
 
-const handleConnectedEvent = function (walletAddress) {
-    state.connected = true
-    state.walletAddress = walletAddress.toLowerCase()
+const handleConnectedEvent = function () {
+    state.metamaskConnected = true
     state.feedback = null
     updateUI(state)
 }
 
 const handleConnectionErrorEvent = function (error) {
-    state.connected = false
-    state.walletAddress = null
+    state.metamaskConnected = false
     state.feedback = error
     updateUI(state)
 }
 
 const handleDisconnectedEvent = function () {
-    state.connected = false
-    state.walletAddress = null
+    state.metamaskConnected = false
     state.feedback = null
     updateUI(state)
 }
@@ -236,7 +238,7 @@ const handleMintErrorEvent = function (error) {
 }
 
 const handleTransferEvent = function (event) {
-    if (event.returnValues.to.toLowerCase() != state.walletAddress.toLowerCase()) return
+    if (event.returnValues.to.toLowerCase() != window.ethereum.selectedAddress) return
     if (event.returnValues.tokenId != state.tokenId) return
 
     state.minting = false
@@ -288,6 +290,9 @@ const connectWallet = async function () {
 }
 
 const mint = async function () {
+    state.minting = true
+    updateUI(state)
+
     let userAddress = window.ethereum.selectedAddress
     let value = web3.utils.toHex(web3.utils.toWei('7', 'ether'))
 
@@ -303,8 +308,6 @@ const mint = async function () {
             method: 'eth_sendTransaction',
             params: [transactionParameters],
         });
-        state.minting = true
-        updateUI(state)
     } catch (error) {
         handleMintErrorEvent(error.message)
     }
@@ -316,7 +319,7 @@ const checkConnection = async function () {
             method: "eth_accounts",
         })
         if (addressArray.length > 0) {
-            handleConnectedEvent(addressArray[0])
+            handleConnectedEvent()
         } else {
             handleDisconnectedEvent()
         }
@@ -364,6 +367,7 @@ const setup = async function () {
     state.date = date
     state.tokenId = date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate()
 
+    hide(missingMetamaskError)
     hide(loadingText)
     hide(connectLink)
     hide(mintLink)
@@ -372,38 +376,37 @@ const setup = async function () {
     hide(mintedLink)
     hide(feedbackContainer)
 
-    if (!window.ethereum) {
-        state.metamaskPresent = false
-        updateUI(state)
-        return
-    }
-    state.metamaskPresent = true
-
-    connectLink.onclick = function () { connectWallet() }
-    mintLink.onclick = function () { mint() }
-    feedbackDismissLink.onclick = function (e) { e.preventDefault(); dismissFeedback() }
-
-    window.ethereum.on('accountsChanged', async () => { checkConnection() })
-
-    window.contract = await new web3.eth.Contract(contractABI, contractAddress)
-
-    state.loadingAssetStatus = true
-    updateUI(state)
-
-    let options = { fromBlock: "latest" }
-
-    window.contract.methods.ownerOf(state.tokenId).call()
-        .then(handleOwnerFetchedEvent)
-        .catch(handleOwnerFetchedErrorEvent)
-
-    window.contract.events.Transfer(options)
-        .on('data', event => handleTransferEvent(event))
-
-    checkConnection()
+    state.controlPanelVisible = true
 
     // Setup countdown.
     handleTimerEvent()
     setInterval(handleTimerEvent, 1000)
+
+    if (window.ethereum) {
+        state.metamaskPresent = false
+        updateUI(state)
+    } else {
+        state.metamaskPresent = true
+        state.loadingAssetStatus = true
+        updateUI(state)
+
+        connectLink.onclick = function () { connectWallet() }
+        mintLink.onclick = function () { mint() }
+        feedbackDismissLink.onclick = function (e) { e.preventDefault(); dismissFeedback() }
+
+        window.ethereum.on('accountsChanged', async () => { checkConnection() })
+        window.contract = await new web3.eth.Contract(contractABI, contractAddress)
+        let options = { fromBlock: "latest" }
+
+        window.contract.methods.ownerOf(state.tokenId).call()
+            .then(handleOwnerFetchedEvent)
+            .catch(handleOwnerFetchedErrorEvent)
+
+        window.contract.events.Transfer(options)
+            .on('data', event => handleTransferEvent(event))
+
+        checkConnection()
+    }
 }
 
 setup()
