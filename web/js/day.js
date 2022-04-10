@@ -277,7 +277,7 @@ const handleTimerEvent = function () {
     } else {
         state.mintingStartsIn = null
         state.mintActive = true
-        clearInterval(state.timer);
+        clearInterval(state.timer)
     }
 
     updateUI(state)
@@ -386,7 +386,7 @@ const setup = async function () {
 
     // Setup countdown.
     handleTimerEvent()
-    setInterval(handleTimerEvent, 1000)
+    state.timer = setInterval(handleTimerEvent, 1000)
 
     if (window.ethereum) {
         state.metamaskPresent = false
