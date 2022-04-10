@@ -76,6 +76,7 @@ const updateUI = function (state) {
 const debouncedUpdateUI = debounce(this, state => updateUiNow(state), 100)
 
 const updateUiNow = function (state) {
+    updateMetaTags(state)
     updateControlPanel(state)
     updateDayText(state)
     updateDateSvgText(state)
@@ -89,6 +90,11 @@ const updateUiNow = function (state) {
     updateMintedLink(state)
     updateAssetLink(state)
     updateTimer(state)
+}
+
+const updateMetaTags = function (state) {
+    const dateString = state.date.toISOString().split('T')[0]
+    document.title = `${dateString} Unstoppable Day`
 }
 
 const updateControlPanel = function (state) {
