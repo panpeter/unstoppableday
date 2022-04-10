@@ -11,6 +11,7 @@ async function main() {
     })
     const transactionResponse = await dayNFTContract.mint(NFT_ID, {
         gasLimit: 500_000,
+        value: ethers.utils.parseEther("7")
     })
 
     console.log(transactionResponse)
