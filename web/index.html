@@ -14,8 +14,12 @@
 
     <script defer data-domain="unstoppableday.io" src="https://plausible.io/js/plausible.js"></script>
     <style>
+        .timer_container {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
         form {
-            margin-top: 3rem;
+            margin-top: 4rem;
             text-align: center;
         }
         input {
@@ -49,6 +53,57 @@
 </header>
 
 <main>
+    <div id="timer_container" class="timer_container">
+        <p class="minting_info">
+            <strong>
+                Unstoppable day NFT minting starts
+                <span style="white-space: nowrap;">April 20 (Wed)</span>
+                <span style="white-space: nowrap;">at 08:00 AM UTC</span>
+            </strong>
+        </p>
+        <div class="countdown">
+            <div class="unit"><span class="number" id="days_text">00</span><br />Days</div>
+            <div class="unit"><span class="number" id="hours_text">00</span><br />Hours</div>
+            <div class="unit"><span class="number" id="minutes_text">00</span><br />Minutes</div>
+            <div class="unit"><span class="number" id="seconds_text">00</span><br />Seconds</div>
+        </div>
+        <script>
+            const mintingStartsAt = new Date("04/20/2022 08:00 AM UTC")
+
+            const timerContainer = document.getElementById("timer_container")
+            const daysText = document.getElementById("days_text")
+            const hoursText = document.getElementById("hours_text")
+            const minutesText = document.getElementById("minutes_text")
+            const secondsText = document.getElementById("seconds_text")
+
+            const updateTimer = function (msLeft) {
+                if (msLeft <= 0) {
+                    timerContainer.style.display = "none";
+                    clearInterval(timer)
+                    return
+                }
+
+                var _second = 1000
+                var _minute = _second * 60
+                var _hour = _minute * 60
+                var _day = _hour * 24
+
+                daysText.innerText = Math.floor(msLeft / _day)
+                hoursText.innerText = Math.floor((msLeft % _day) / _hour)
+                minutesText.innerText = Math.floor((msLeft % _hour) / _minute)
+                secondsText.innerText = Math.floor((msLeft % _minute) / _second)
+            }
+
+            const handleTimerEvent = function () {
+                var now = new Date()
+                var msLeft = mintingStartsAt - now
+                updateTimer(msLeft)
+            }
+
+            handleTimerEvent()
+            let timer = setInterval(handleTimerEvent, 1000)
+        </script>
+    </div>
     <p>
         Unstoppable Day is the first decentralized calendar dApp run on the Polygon blockchain. Owned and curated by the
         crypto community, where everyone can find legit NFT drops, ICOs, and other crypto-related events.
