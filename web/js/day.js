@@ -23,7 +23,7 @@ const contractABI = [{ inputs: [], stateMutability: "nonpayable", type: "constru
 const contractAddress = "0x741dfb71e20b9d266d54fed8e7af915b3cd50c70"
 const web3 = AlchemyWeb3.createAlchemyWeb3("wss://polygon-mumbai.g.alchemy.com/v2/MA73MnRjzd3xgxZ7uPzMvNEOFrFYehEy")
 const scannerLinkPrefix = "https://polygonscan.com/"
-const mintingStartsAt = new Date("05/01/2022 08:00 AM UTC")
+const mintingStartsAt = new Date("04/20/2022 08:00 AM UTC")
 
 // ========== HTML ELEMENTS ==========
 
