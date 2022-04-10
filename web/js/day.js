@@ -388,7 +388,7 @@ const setup = async function () {
     handleTimerEvent()
     state.timer = setInterval(handleTimerEvent, 1000)
 
-    if (window.ethereum) {
+    if (!window.ethereum) {
         state.metamaskPresent = false
         updateUI(state)
     } else {
