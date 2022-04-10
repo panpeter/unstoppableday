@@ -154,7 +154,7 @@ const updateConnectLink = function (state) {
 }
 
 const updateMintLink = function (state) {
-    if (state.connected &&
+    if (state.metamaskConnected &&
         !state.loadingAssetStatus &&
         !state.minting &&
         !state.minted &&
