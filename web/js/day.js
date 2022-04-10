@@ -190,7 +190,7 @@ const updateMintedLink = function (state) {
 const updateAssetLink = function (state) {
     if (state.assetLink && state.mintActive) {
         removeHide(assetLink)
-        assetLink.setAttribute("href", scannerLinkPrefix + "address/" + contractAddress)
+        assetLink.setAttribute("href", scannerLinkPrefix + "token/" + contractAddress + "?a=" + state.tokenId)
     } else {
         hide(assetLink)
     }
