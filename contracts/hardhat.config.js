@@ -1,14 +1,16 @@
 /**
 * @type import('hardhat/config').HardhatUserConfig
 */
-require('dotenv').config();
-require("@nomiclabs/hardhat-ethers");
+require('dotenv').config()
+require("@nomiclabs/hardhat-ethers")
+require("@nomiclabs/hardhat-etherscan")
 
 const { 
     POLYGON_MUMBAI_API_URL, 
     POLYGON_MAINNET_API_URL,
     POLYGON_MUMBAI_PRIVATE_KEY,
     POLYGON_MAINNET_PRIVATE_KEY,
+    POLYGONSCAN_KEY,
 } = process.env;
 
 module.exports = {
@@ -33,5 +35,8 @@ module.exports = {
             url: POLYGON_MAINNET_API_URL,
             accounts: [`0x${POLYGON_MAINNET_PRIVATE_KEY}`]
          }
+    },
+    etherscan: {
+        apiKey: POLYGONSCAN_KEY,
     },
 }
