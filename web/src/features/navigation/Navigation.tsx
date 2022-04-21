@@ -1,12 +1,19 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom'
 import styles from './Navigation.module.css';
 
 export function Navigation() {
     return (
         <nav>
-            <a href="/" className={styles.current}>Home</a>
+            <NavLink
+                to="/"
+                className={({isActive}) => (isActive ? styles.current : '')}
+            >Home</NavLink>
             {' '}
-            <a href="/roadmap">Roadmap</a>
+            <NavLink
+                to="/roadmap"
+                className={({isActive}) => (isActive ? styles.current : '')}
+            >Roadmap</NavLink>
             {' '}
             <a href="https://twitter.com/nstpday">
                 <svg className={styles.icon} viewBox="0 0 30 30">
