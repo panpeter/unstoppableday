@@ -13,21 +13,19 @@ import {
 function App() {
     return (
         <Router>
-            <div className="App">
-                <header>
-                    <Navigation/>
-                    <h1>Unstoppable Day</h1>
-                    <p>Decentralized calendar run on the blockchain.</p>
-                </header>
-                <main>
-                    <Routes>
-                        <Route path="/roadmap" element={<Roadmap/>}/>
-                        <Route index element={<Home/>}/>
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                </main>
-                <Footer/>
-            </div>
+            <header>
+                <Navigation/>
+                <h1>Unstoppable Day</h1>
+                <p>Decentralized calendar run on the blockchain.</p>
+            </header>
+            <main>
+                <Routes>
+                    <Route path="/roadmap" element={<Roadmap/>}/>
+                    <Route index element={<Home/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+            </main>
+            <Footer/>
         </Router>
     );
 }
