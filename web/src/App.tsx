@@ -3,6 +3,7 @@ import {Home} from "./features/home/Home";
 import {Roadmap} from "./features/roadmap/Roadmap";
 import {Navigation} from "./features/navigation/Navigation";
 import {Footer} from "./features/footer/Footer";
+import {Day} from "./features/day/Day";
 import {NotFound} from "./features/notfound/NotFound";
 import {
     BrowserRouter as Router,
@@ -22,7 +23,7 @@ function App() {
                 <Routes>
                     <Route path="/roadmap" element={<Roadmap/>}/>
                     <Route index element={<Home/>}/>
-                    <Route path="*" element={<NotFound/>}/>
+                    <Route path="/:date" element={<Day/>}/>
                 </Routes>
             </main>
             <Footer/>

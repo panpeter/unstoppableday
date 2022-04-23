@@ -1,0 +1,44 @@
+.container {
+    width: 80%;
+    margin: 0 auto 3rem auto;
+}
+
+.container:last-of-type {
+    /* Footer already has a margin. */
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 720px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.score {
+    border-right: 1px solid var(--border);
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title {
+    margin: 0 0 0 1rem;
+}
+
+.image {
+    margin-top: 1rem;
+}
+
+.links {
+    font-size: 0.9rem;
+}
+
+.links a {
+    margin-right: 1.5rem;
+}
