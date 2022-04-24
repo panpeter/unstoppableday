@@ -18,7 +18,8 @@ export function Navigation() {
             <NavLink
                 to="/new"
                 className={({isActive}) => (isActive ? styles.current : '')}
-            >+ Create Post</NavLink>
+            >Create Post</NavLink>
+            <a>Connect</a>
         </nav>
     );
 }

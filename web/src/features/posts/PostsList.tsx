@@ -3,11 +3,10 @@ import {useAppSelector} from "../../app/hooks";
 import styles from "./Posts.module.css";
 import {Post} from "./postsSlice";
 
-export interface PostsListProps {
-    date: string
+export interface PostListProps {
+    date: string;
 }
-
-export const PostsList = ({date}: PostsListProps) => {
+export const PostsList = ({date}: PostListProps) => {
     const posts = useAppSelector(state =>
         state.posts.filter(post => post.date === date)
     )
@@ -67,6 +66,14 @@ export const PostsList = ({date}: PostsListProps) => {
             {linksElement(post)}
         </div>
     ))
+
+    if (renderedPosts.length === 0) {
+        return (
+            <section>
+                <div className={styles.container}>No posts.</div>
+            </section>
+        )
+    }
 
     return (
         <section>

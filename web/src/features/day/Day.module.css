@@ -1,0 +1,17 @@
+.dayTitle {
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+}
+
+.dayTitle:first-of-type {
+    padding-top: 0;
+}
+
+
+@media only screen and (max-width: 720px) {
+    .dayTitle {
+        width: 100%;
+    }
+}

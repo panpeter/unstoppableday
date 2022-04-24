@@ -14,6 +14,7 @@ import {CreatePostHeader} from "./features/posts/CreatePostHeader";
 import {RoadmapHeader} from "./features/roadmap/RoadmapHeader";
 import {DayHeader} from "./features/day/DayHeader";
 import {Day} from "./features/day/Day";
+import {Upcoming} from "./features/upcoming/Upcoming";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
             <header>
                 <Navigation/>
                 <Routes>
+                    <Route path="/upcoming" element={<HomeHeader/>}/>
                     <Route path="/roadmap" element={<RoadmapHeader/>}/>
                     <Route path="/new" element={<CreatePostHeader/>}/>
                     <Route path="/:date" element={<DayHeader/>}/>
@@ -29,6 +31,7 @@ function App() {
             </header>
             <main>
                 <Routes>
+                    <Route path="/upcoming" element={<Upcoming/>}/>
                     <Route path="/roadmap" element={<Roadmap/>}/>
                     <Route path="/new" element={<CreatePostForm/>}/>
                     <Route path="/:date" element={<Day/>}/>
