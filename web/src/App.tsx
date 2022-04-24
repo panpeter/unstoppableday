@@ -8,6 +8,7 @@ import {
     Routes,
     Route,
 } from 'react-router-dom';
+import {AddPostForm} from "./features/posts/AddPostForm";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/roadmap" element={<Roadmap/>}/>
+                    <Route path="/new" element={<AddPostForm/>}/>
                     <Route index element={<Home/>}/>
                 </Routes>
             </main>

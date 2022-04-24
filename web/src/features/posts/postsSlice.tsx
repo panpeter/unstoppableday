@@ -24,7 +24,7 @@ const initialState: PostsState = [
         score: 21,
     },
     {
-        id: '2',
+        id: '3',
         title: 'Scaramucci\'s SkyBridge Starts Fund for Bitcoin Mining',
         content: 'Skybridge Capital, the investment firm founded by financier and former Donald Trump aide Anthony Scaramucci, started a new investment vehicle, to invest in bitcoin mining, according to a U.S. Securities and Exchange Commission (SEC) filing.',
         image: 'https://via.placeholder.com/300',

@@ -1,12 +1,13 @@
 import React from 'react'
 import {useAppSelector} from "../../app/hooks";
 import styles from "./Posts.module.css";
+import {NavLink} from "react-router-dom";
 
 export const PostsList = () => {
     const posts = useAppSelector(state => state.posts)
 
     const renderedPosts = posts.map(post => (
-        <div className={styles.container}>
+        <div className={styles.container} key={post.id}>
             <div className={styles.header}>
                 <div className={styles.score}>
                     <span>▲</span>
@@ -28,6 +29,7 @@ export const PostsList = () => {
 
     return (
         <section>
+            <NavLink to="/new" className={styles.create}>Create Post</NavLink>
             {renderedPosts}
         </section>
     )
