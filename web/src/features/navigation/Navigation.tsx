@@ -8,7 +8,7 @@ export function Navigation() {
             <NavLink
                 to="/"
                 className={({isActive}) => (isActive ? styles.current : '')}
-            >Today & Yesterday</NavLink>
+            >Latest</NavLink>
             {' '}
             <NavLink
                 to="/upcoming"
