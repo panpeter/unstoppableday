@@ -15,3 +15,13 @@
         width: 100%;
     }
 }
+
+.dayPicker {
+    text-align: center;
+}
+
+.dayPicker input {
+    width: 220px;
+    margin-right: 1rem;
+    vertical-align: bottom;
+}

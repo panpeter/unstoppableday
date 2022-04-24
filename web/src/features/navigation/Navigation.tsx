@@ -14,6 +14,10 @@ export function Navigation() {
                 to="/upcoming"
                 className={({isActive}) => (isActive ? styles.current : '')}
             >Upcoming</NavLink>
+            <NavLink
+                to="/day"
+                className={({isActive}) => (isActive ? styles.current : '')}
+            >Pick a Day</NavLink>
             {' '}
             <NavLink
                 to="/new"
