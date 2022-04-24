@@ -15,6 +15,11 @@ export function Navigation() {
                 className={({isActive}) => (isActive ? styles.current : '')}
             >Roadmap</NavLink>
             {' '}
+            <NavLink
+                to="/new"
+                className={({isActive}) => (isActive ? styles.current : '')}
+            >Create Post</NavLink>
+            {' '}
             <a href="https://twitter.com/nstpday">
                 <svg className={styles.icon} viewBox="0 0 30 30">
                     <path

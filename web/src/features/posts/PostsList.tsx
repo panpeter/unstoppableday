@@ -1,10 +1,16 @@
-import React from 'react'
+import React from 'react';
 import {useAppSelector} from "../../app/hooks";
 import styles from "./Posts.module.css";
 import {NavLink} from "react-router-dom";
 
-export const PostsList = () => {
-    const posts = useAppSelector(state => state.posts)
+export interface PostsListProps {
+    date: string
+}
+
+export const PostsList = ({date}: PostsListProps) => {
+    const posts = useAppSelector(state =>
+        state.posts.filter(post => post.date === date)
+    )
 
     const renderedPosts = posts.map(post => (
         <div className={styles.container} key={post.id}>

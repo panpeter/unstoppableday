@@ -1,28 +1,25 @@
 import React, {useState} from 'react'
 import {useAppDispatch} from "../../app/hooks";
 import {postAdded} from "./postsSlice";
-import {nanoid} from "@reduxjs/toolkit";
 
 export const CreatePostForm = () => {
+    let todayString = new Date().toISOString().split('T')[0]
+
+    const [date, setDate] = useState(todayString)
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
     const [content, setContent] = useState('')
 
     const dispatch = useAppDispatch()
 
+    const onDateChanged = (e: React.FormEvent<HTMLInputElement>) => setDate(e.currentTarget.value)
     const onTitleChanged = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
     const onImageChanged = (e: React.FormEvent<HTMLInputElement>) => setImage(e.currentTarget.value)
     const onContentChanged = (e: React.FormEvent<HTMLTextAreaElement>) => setContent(e.currentTarget.value)
 
     const onCreatePostClicked = () => {
         if (title && (content || image)) {
-            dispatch(postAdded({
-                id: nanoid(),
-                title: title,
-                content: content,
-                image: image,
-                score: 0
-            }))
+            dispatch(postAdded(date, title, content, image))
 
             setTitle('')
             setContent('')
@@ -33,6 +30,17 @@ export const CreatePostForm = () => {
     return (
         <section>
             <form>
+                <p>
+                    <label htmlFor="postDate">Day:</label>
+                    <br/>
+                    <input
+                        type="date"
+                        id="postDate"
+                        name="postDate"
+                        value={date}
+                        onChange={onDateChanged}
+                    />
+                </p>
                 <p>
                     <label htmlFor="postTitle">Title:</label>
                     <br/>
