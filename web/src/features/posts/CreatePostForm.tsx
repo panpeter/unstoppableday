@@ -7,25 +7,29 @@ export const CreatePostForm = () => {
 
     const [date, setDate] = useState(todayString)
     const [title, setTitle] = useState('')
+    const [link, setLink] = useState('')
     const [image, setImage] = useState('')
-    const [content, setContent] = useState('')
+    const [description, setDescription] = useState('')
 
     const dispatch = useAppDispatch()
 
     const onDateChanged = (e: React.FormEvent<HTMLInputElement>) => setDate(e.currentTarget.value)
     const onTitleChanged = (e: React.FormEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const onLinkChanged = (e: React.FormEvent<HTMLInputElement>) => setLink(e.currentTarget.value)
     const onImageChanged = (e: React.FormEvent<HTMLInputElement>) => setImage(e.currentTarget.value)
-    const onContentChanged = (e: React.FormEvent<HTMLTextAreaElement>) => setContent(e.currentTarget.value)
+    const onDescriptionChanged = (e: React.FormEvent<HTMLTextAreaElement>) => setDescription(e.currentTarget.value)
 
     const onCreatePostClicked = () => {
-        if (title && (content || image)) {
-            dispatch(postAdded(date, title, content, image))
-
-            setTitle('')
-            setContent('')
-            setImage('')
-        }
+        dispatch(postAdded(date, title, link, image, description))
+        setTitle('')
+        setLink('')
+        setImage('')
+        setDescription('')
     }
+
+    const maxTitleLength = 100
+    const maxDescriptionLength = 5000
+    const canCreate = Boolean(title) && (Boolean(link) || Boolean(image) || Boolean(description))
 
     return (
         <section>
@@ -48,15 +52,27 @@ export const CreatePostForm = () => {
                         type="text"
                         id="postTitle"
                         name="postTitle"
+                        maxLength={maxTitleLength}
                         value={title}
                         onChange={onTitleChanged}
+                    />
+                </p>
+                <p>
+                    <label htmlFor="postLink">Link:</label>
+                    <br/>
+                    <input
+                        type="url"
+                        id="postLink"
+                        name="postLink"
+                        value={link}
+                        onChange={onLinkChanged}
                     />
                 </p>
                 <p>
                     <label htmlFor="postImage">Image:</label>
                     <br/>
                     <input
-                        type="text"
+                        type="url"
                         id="postImage"
                         name="postImage"
                         value={image}
@@ -64,16 +80,17 @@ export const CreatePostForm = () => {
                     />
                 </p>
                 <p>
-                    <label htmlFor="postContent">Content:</label>
+                    <label htmlFor="postDescription">Description:</label>
                     <br/>
                     <textarea
-                        id="postContent"
-                        name="postContent"
-                        value={content}
-                        onChange={onContentChanged}
+                        id="postDescription"
+                        name="postDescription"
+                        value={description}
+                        maxLength={maxDescriptionLength}
+                        onChange={onDescriptionChanged}
                     />
                 </p>
-                <button type="button" onClick={onCreatePostClicked}>Create Post</button>
+                <button type="button" onClick={onCreatePostClicked} disabled={!canCreate}>Create Post</button>
             </form>
         </section>
     )

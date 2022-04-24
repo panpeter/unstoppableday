@@ -1,7 +1,7 @@
 import React from 'react';
 import {useAppSelector} from "../../app/hooks";
 import styles from "./Posts.module.css";
-import {NavLink} from "react-router-dom";
+import {Post} from "./postsSlice";
 
 export interface PostsListProps {
     date: string
@@ -12,30 +12,64 @@ export const PostsList = ({date}: PostsListProps) => {
         state.posts.filter(post => post.date === date)
     )
 
-    const renderedPosts = posts.map(post => (
+    const orderedPosts = posts.slice().sort((a, b) => b.score - a.score)
+
+    const headerElement = (post: Post) => {
+        return <div className={styles.header}>
+            <div className={styles.score}>
+                <span>▲</span>
+                <span>{post.score}</span>
+            </div>
+            {titleElement(post)}
+        </div>
+    }
+
+    const titleElement = (post: Post) => {
+        if (post.link) {
+            return <h4 className={styles.title}>
+                <a href={post.link}>{post.title}</a>
+            </h4>
+        } else {
+            return <h4 className={styles.title}>{post.title}</h4>
+        }
+    }
+
+    const imageElement = (post: Post) => {
+        if (post.image) {
+            return <img alt="placeholder" className={styles.image} src={post.image}/>
+        } else {
+            return ""
+        }
+    }
+
+    const descriptionElement = (post: Post) => {
+        if (post.description) {
+            return <p className={styles.description}>{post.description}</p>
+        } else {
+            return ""
+        }
+    }
+
+    const linksElement = (post: Post) => {
+        return <div className={styles.links}>
+            <a href={"/"}>▲ Vote</a>
+            <a href={"/"}>💰 Promote</a>
+            <a href={"/"}>🛑 Report</a>
+            <a href={"/"}>❌ Delete</a>
+        </div>
+    }
+
+    const renderedPosts = orderedPosts.map(post => (
         <div className={styles.container} key={post.id}>
-            <div className={styles.header}>
-                <div className={styles.score}>
-                    <span>▲</span>
-                    <span>{post.score}</span>
-                </div>
-                <h4 className={styles.title}>{post.title}</h4>
-            </div>
-            {post.image &&
-                <img alt="placeholder" className={styles.image} src={post.image}/>
-            }
-            <p>{post.content}</p>
-            <div className={styles.links}>
-                <a href={"/"}>▲ Vote</a>
-                <a href={"/"}>💰 Promote</a>
-                <a href={"/"}>🙈 Report</a>
-            </div>
+            {headerElement(post)}
+            {imageElement(post)}
+            {descriptionElement(post)}
+            {linksElement(post)}
         </div>
     ))
 
     return (
         <section>
-            <NavLink to="/new" className={styles.create}>Create Post</NavLink>
             {renderedPosts}
         </section>
     )

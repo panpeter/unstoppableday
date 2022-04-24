@@ -1,9 +1,15 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import {NavLink} from "react-router-dom";
 
 export function Footer() {
     return (
         <footer>
+            <p className={styles.links}>
+                <NavLink to="/roadmap">Roadmap</NavLink>
+                <a href="https://twitter.com/nstpday">Twitter</a>
+                <a href="https://opensea.io/collection/unstoppable-day-nft">Day NFT</a>
+            </p>
             <p>
                 <a href="https://unstoppableday.io">unstoppableday.io</a>
                 {' '}
@@ -16,11 +22,9 @@ export function Footer() {
                 <a href="https://github.com/panpeter/unstoppableday">GitHub</a>.
             </p>
             <p>
-                Contract address:
+                To project is build in public and you can follow the progress at
                 {' '}
-                <a href="https://polygonscan.com/address/0x8bA8bd39c44034BD32296d84F908545F012A16Db">
-                    0x8bA8...A16Db
-                </a>
+                <a href="https://twitter.com/piotrekwilczek">@piotrekwilczek</a>
             </p>
         </footer>
     );

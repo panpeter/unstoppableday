@@ -1,8 +1,14 @@
 import React from 'react';
 import {PostsList} from '../posts/PostsList';
+import {CreatePostButton} from "../posts/CreatePostButton";
 
 export function Home() {
+    const date = '2022-04-24'
+
     return (
-        <PostsList date='2022-04-24' />
+        <React.Fragment>
+            <CreatePostButton/>
+            <PostsList date={date}/>
+        </React.Fragment>
     );
 }

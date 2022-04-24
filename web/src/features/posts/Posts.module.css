@@ -1,6 +1,6 @@
 .create {
     width: 80%;
-    margin: 0 auto 3rem;
+    margin: 1rem auto 3rem;
     text-align: center;
     line-height: 2;
     font-size: 1rem;
@@ -13,6 +13,19 @@
     text-decoration: none;
 }
 
+.navigation {
+    width: 80%;
+    margin: 0 auto 3rem;
+}
+
+.navigation a {
+    padding: 0.5rem;
+}
+
+.dateInput {
+    width: 180px;
+}
+
 .create:hover {
     color: var(--accent);
     border-color: var(--accent);
@@ -20,12 +33,20 @@
 
 .container {
     width: 80%;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.container:first-of-type {
+    padding-top: 0;
 }
 
 .container:last-of-type {
     /* Footer already has a margin. */
-    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 @media only screen and (max-width: 720px) {
@@ -55,12 +76,21 @@
     margin: 0 0 0 1rem;
 }
 
+.title a {
+    color: var(--text);
+}
+
 .image {
+    margin-top: 1rem;
+}
+
+.description {
     margin-top: 1rem;
 }
 
 .links {
     font-size: 0.9rem;
+    margin-top: 1rem;
 }
 
 .links a {
