@@ -8,20 +8,26 @@ import {
     Routes,
     Route,
 } from 'react-router-dom';
-import {AddPostForm} from "./features/posts/AddPostForm";
+import {CreatePostForm} from "./features/posts/CreatePostForm";
+import {HomeHeader} from "./features/home/HomeHeader";
+import {CreatePostHeader} from "./features/posts/CreatePostHeader";
+import {RoadmapHeader} from "./features/roadmap/RoadmapHeader";
 
 function App() {
     return (
         <Router>
             <header>
                 <Navigation/>
-                <h1>Unstoppable Day</h1>
-                <p>Decentralized calendar run on the blockchain.</p>
+                <Routes>
+                    <Route path="/roadmap" element={<RoadmapHeader/>}/>
+                    <Route path="/new" element={<CreatePostHeader/>}/>
+                    <Route index element={<HomeHeader/>}/>
+                </Routes>
             </header>
             <main>
                 <Routes>
                     <Route path="/roadmap" element={<Roadmap/>}/>
-                    <Route path="/new" element={<AddPostForm/>}/>
+                    <Route path="/new" element={<CreatePostForm/>}/>
                     <Route index element={<Home/>}/>
                 </Routes>
             </main>
