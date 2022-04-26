@@ -7,6 +7,9 @@ export function DayHeader() {
     const date = params.date
 
     return (
-        <h1>Day {date}</h1>
+        <React.Fragment>
+            <h1>Day {date}</h1>
+            <p>Owned by <a href='#'>0x0000...0000</a></p>
+        </React.Fragment>
     );
 }
