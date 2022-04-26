@@ -10,11 +10,11 @@ export function DayTitle({date}: DayProps) {
     const parsedDate = parseISO(date)
     let dateText: string
     if (isToday(parsedDate)) {
-        dateText = 'Today'
+        dateText = 'Today in Crypto World'
     } else if (isYesterday(parsedDate)) {
-        dateText = 'Yesterday'
+        dateText = 'Yesterday in Crypto World'
     } else if (isTomorrow(parsedDate)) {
-        dateText = 'Tomorrow'
+        dateText = 'Tomorrow in Crypto World'
     } else {
         dateText = date
     }
