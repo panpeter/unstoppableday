@@ -1,7 +1,6 @@
 # Unstoppable Day
 
-Unstoppable Day is the first decentralized calendar run on the blockchain. Owned and curated by the crypto
-community, where everyone can find legit NFT drops, ICOs, and other crypto-related events.
+Unstoppable Day is decentralized aggregator run on the Polygon blockchain. It's owned and curated by the crypto community, where everyone can find the latest news, events, discussions, analysis, memes and more.
 
 Available at: https://unstoppableday.io
 
