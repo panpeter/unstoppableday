@@ -1,7 +1,11 @@
 .author {
-  white-space: nowrap;
+    white-space: nowrap;
+}
+
+.links {
+    margin-bottom: 2rem;
 }
 
 .links a {
-  padding: 1rem;
+    padding: 1rem;
 }
