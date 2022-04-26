@@ -1,4 +1,5 @@
 import {createSlice, nanoid, PayloadAction} from '@reduxjs/toolkit'
+import {formatISO, startOfToday} from "date-fns";
 
 export interface Post {
     id: string,
@@ -14,10 +15,12 @@ export interface Post {
 interface PostsState extends Array<Post> {
 }
 
+const todayString = formatISO(startOfToday(), { representation: 'date' })
+
 const initialState: PostsState = [
     {
         id: '1',
-        date: '2022-04-24',
+        date: todayString,
         title: 'Market Wrap: Cryptos Slip as Bitcoin Struggles to Hold $40K',
         link: 'https://unstoppableday.io/',
         score: 23,
@@ -25,7 +28,7 @@ const initialState: PostsState = [
     },
     {
         id: '2',
-        date: '2022-04-24',
+        date: todayString,
         title: 'CZ\'s Open Response to the Journalists from Reuters',
         description: 'CZ Binance tweeted a link containing Binance\'s open response to the inaccurate article published by the irresponsible journalists from Reuters',
         author: '0x0000',
@@ -33,7 +36,7 @@ const initialState: PostsState = [
     },
     {
         id: '3',
-        date: '2022-04-24',
+        date: todayString,
         title: 'Scaramucci\'s SkyBridge Starts Fund for Bitcoin Mining',
         image: 'https://via.placeholder.com/300',
         author: '0x0000',
