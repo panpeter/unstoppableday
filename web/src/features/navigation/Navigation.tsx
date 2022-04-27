@@ -1,18 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavLink} from 'react-router-dom'
 import styles from './Navigation.module.css';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {connect, disconnect} from "../wallet/walletSlice";
+import {checkConnection, ConnectionState, connectWallet, disconnectWallet} from "../wallet/walletSlice";
+
+// TODO handle ens addresses
+const formatAddress = (address?: string) => {
+    if (address) {
+        return address.substring(0, 6) + "…" + address.substring(38);
+    }
+}
 
 export function Navigation() {
-    const walletConnected = useAppSelector(state => state.wallet.connected)
+    const connectionState = useAppSelector(state => state.wallet.connectionState)
+    const walletAddress = useAppSelector(state => state.wallet.address)
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (connectionState === ConnectionState.Disconnected) {
+            dispatch(checkConnection())
+        }
+    }, [connectionState, dispatch])
+
+    // TODO change connecting link to a button?
     const connectLink = () => {
-        if (walletConnected) {
-            return <a onClick={() => dispatch(disconnect())}>0x0000...0000</a>
+        if (connectionState === ConnectionState.Connected) {
+            return <a onClick={() => dispatch(disconnectWallet())}>{formatAddress(walletAddress)}</a>
+        } else if (connectionState === ConnectionState.Connecting) {
+            return <a href={"#"}>Connecting...</a>
         } else {
-            return <a onClick={() => dispatch(connect())}>Connect</a>
+            return <a onClick={() => dispatch(connectWallet())}>Connect</a>
         }
     }
 
