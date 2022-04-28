@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {NavLink} from 'react-router-dom'
 import styles from './Navigation.module.css';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {checkConnection, ConnectionState, connectWallet, disconnectWallet} from "../web3/walletSlice";
+import {checkWallet, ConnectionState, connectWallet, disconnectWallet} from "../web3/walletSlice";
 
 // TODO handle ens addresses
 const formatAddress = (address?: string) => {
@@ -18,7 +18,7 @@ export function Navigation() {
 
     useEffect(() => {
         if (connectionState === ConnectionState.Disconnected) {
-            dispatch(checkConnection())
+            dispatch(checkWallet())
         }
     }, [connectionState, dispatch])
 
