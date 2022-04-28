@@ -10,7 +10,6 @@ export const dispatchEthereumEvents = () => {
         ethereum.on('disconnect', () => {
             store.dispatch(disconnected())
         });
-
         ethereum.on('chainChanged', () => window.location.reload());
     }
 }
