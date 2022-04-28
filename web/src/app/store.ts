@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import postsReducer from '../features/posts/postsSlice'
 import walletReducer from '../features/wallet/walletSlice'
+import dayReducer from '../features/day/daySlice'
 
 export const store = configureStore({
   reducer: {
     posts: postsReducer,
     wallet: walletReducer,
+    day: dayReducer,
   },
 });
 

@@ -3,13 +3,7 @@ import {NavLink} from 'react-router-dom'
 import styles from './Navigation.module.css';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {checkWallet, ConnectionState, connectWallet, disconnectWallet} from "../wallet/walletSlice";
-
-// TODO handle ens addresses
-const formatAddress = (address?: string) => {
-    if (address) {
-        return address.substring(0, 6) + "…" + address.substring(38);
-    }
-}
+import {truncateAddress} from "../../app/web3";
 
 export function Navigation() {
     const connectionState = useAppSelector(state => state.wallet.connectionState)
@@ -25,7 +19,7 @@ export function Navigation() {
     // TODO change connecting link to a button?
     const connectLink = () => {
         if (connectionState === ConnectionState.Connected) {
-            return <a onClick={() => dispatch(disconnectWallet())}>{formatAddress(walletAddress)}</a>
+            return <a onClick={() => dispatch(disconnectWallet())}>{truncateAddress(walletAddress!)}</a>
         } else if (connectionState === ConnectionState.Connecting) {
             return <a href={"#"}>Connecting...</a>
         } else {
