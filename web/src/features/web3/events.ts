@@ -1,5 +1,5 @@
 import {store} from "../../app/store";
-import {accountsChanged, disconnected} from "../wallet/walletSlice";
+import {accountsChanged, disconnected} from "./walletSlice";
 
 export const dispatchEthereumEvents = () => {
     const ethereum = window.ethereum
