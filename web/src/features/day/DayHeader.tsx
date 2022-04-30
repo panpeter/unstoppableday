@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {RouteParams} from "./RouteParams";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {setDate} from "./daySlice";
+import {mint, setDate} from "./daySlice";
 import {truncateAddress} from "../../app/web3";
 
 export function DayHeader() {
@@ -11,21 +11,22 @@ export function DayHeader() {
     const dispatch = useAppDispatch();
 
     const owner = useAppSelector(state => state.day.owner)
-    const ownerFetched = useAppSelector(state => state.day.ownerFetched)
+    const mintStatus = useAppSelector(state => state.day.mintStatus)
+    const dayLink = useAppSelector(state => state.day.link)
 
     useEffect(() => {
         dispatch(setDate(date));
     }, [dispatch, date]);
 
     let ownerInfo
-    if (ownerFetched) {
-        if (owner) {
-            ownerInfo = <p>Owned by <a href='#'>{truncateAddress(owner!)}</a></p>
-        } else {
-            ownerInfo = <p><a href='#'>Mint</a></p>
-        }
-    } else {
+    if (mintStatus == 'unknown') {
         ownerInfo = <p>&nbsp;</p>
+    } else if (mintStatus == 'minting') {
+        ownerInfo = <p>Minting...</p>
+    } else if (mintStatus == 'not_minted') {
+        ownerInfo = <p><a onClick={() => dispatch(mint(date))}>Mint</a></p>
+    } else if (mintStatus == 'minted') {
+        ownerInfo = <p>Owned by <a target="_blank" href={dayLink}>{truncateAddress(owner!)}</a></p>
     }
 
     return (
